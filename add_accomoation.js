@@ -9,7 +9,6 @@ const client = new Client({
   password: "param", // Update with your password
   database: "trip", // Update with your database name
 });
-
 // Function to insert dummy data into ACCOMMODATION table
 async function insertAccommodationData() {
   try {
