@@ -1,21 +1,21 @@
-    -- CREATE TABLE
-    --     tripUser (
-    --         aadhaar_no VARCHAR(12) PRIMARY KEY,
-    --         first_name VARCHAR(20),
-    --         middle_name VARCHAR(20),
-    --         last_name VARCHAR(20),
-    --         phone_no VARCHAR(10),
-    --         email VARCHAR(100)
-    --     );
+    CREATE TABLE
+        tripUser (
+            aadhaar_no VARCHAR(12) PRIMARY KEY,
+            first_name VARCHAR(20),
+            middle_name VARCHAR(20),
+            last_name VARCHAR(20),
+            phone_no VARCHAR(10),
+            email VARCHAR(100)
+        );
 
-    -- CREATE TABLE
-    --     TRIP (
-    --         trip_id serial PRIMARY KEY,
-    --         description VARCHAR(500),
-    --         duration INT,
-    --         price DECIMAL(10, 2),
-    --         total_stop INT
-    --     );
+    CREATE TABLE
+        TRIP (
+            trip_id serial PRIMARY KEY,
+            description VARCHAR(500),
+            duration INT,
+            price DECIMAL(10, 2),
+            total_stop INT
+        );
 
     CREATE TABLE
         TEAM_MANAGEMENT (
@@ -65,48 +65,48 @@
             PRIMARY KEY (LEADER_ID, START_TIME_OF_TRIP)
         );
 
-    -- CREATE TABLE
-    --     ACCOMMODATION (
-    --         stop_number INT,
-    --         trip_id INT,
-    --         address TEXT,
-    --         number_of_days_between_start_and_checkin INT,
-    --         duration_of_stay INT,
-    --         checkin_time TIME,
-    --         checkout_time TIME,
-    --         contact_info VARCHAR(100),
-    --         PRIMARY KEY (stop_number, trip_id),
-    --         FOREIGN KEY (trip_id) REFERENCES TRIP (trip_id)
-    --     );
+    CREATE TABLE
+        ACCOMMODATION (
+            stop_number INT,
+            trip_id INT,
+            address TEXT,
+            number_of_days_between_start_and_checkin INT,
+            duration_of_stay INT,
+            checkin_time TIME,
+            checkout_time TIME,
+            contact_info VARCHAR(100),
+            PRIMARY KEY (stop_number, trip_id),
+            FOREIGN KEY (trip_id) REFERENCES TRIP (trip_id)
+        );
 
-    -- CREATE TABLE
-    --     CITY (
-    --         cityname VARCHAR(100),
-    --         statename varchar(50),
-    --         district_name VARCHAR(100),
-    --         PRIMARY key (cityname, statename)
-    --     );
+    CREATE TABLE
+        CITY (
+            cityname VARCHAR(100),
+            statename varchar(50),
+            district_name VARCHAR(100),
+            PRIMARY key (cityname, statename)
+        );
 
-    -- CREATE TABLE
-    --     ROUTESTOP (
-    --         stop_number INT,
-    --         trip_id INT,
-    --         city VARCHAR(100),
-    --         statename varchar(50),
-    --         PRIMARY KEY (stop_number, trip_id),
-    --         FOREIGN KEY (trip_id) REFERENCES TRIP (trip_id),
-    --         FOREIGN KEY (city, statename) REFERENCES city (cityname, statename)
-    --     );
+    CREATE TABLE
+        ROUTESTOP (
+            stop_number INT,
+            trip_id INT,
+            city VARCHAR(100),
+            statename varchar(50),
+            PRIMARY KEY (stop_number, trip_id),
+            FOREIGN KEY (trip_id) REFERENCES TRIP (trip_id),
+            FOREIGN KEY (city, statename) REFERENCES city (cityname, statename)
+        );
 
-    -- CREATE TABLE
-    --     ACTIVITY (
-    --         stop_number INT,
-    --         trip_id INT,
-    --         duration INT,
-    --         name VARCHAR(100),
-    --         description TEXT,
-    --         PRIMARY KEY (stop_number, trip_id),
-    --         FOREIGN KEY (trip_id) REFERENCES TRIP (trip_id)
-    --     )
+    CREATE TABLE
+        ACTIVITY (
+            stop_number INT,
+            trip_id INT,
+            duration INT,
+            name VARCHAR(100),
+            description TEXT,
+            PRIMARY KEY (stop_number, trip_id),
+            FOREIGN KEY (trip_id) REFERENCES TRIP (trip_id)
+        )
 
 

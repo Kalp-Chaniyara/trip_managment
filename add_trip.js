@@ -1,13 +1,15 @@
 const { Client } = require("pg");
 const { faker } = require("@faker-js/faker"); // Use the latest import for faker
 
-// PostgreSQL connection details
 const client = new Client({
-  host: "localhost",
-  port: 5432,
-  user: "postgres", // Update with your username
-  password: "param", // Update with your password
-  database: "trip", // Update with your database name
+  host: "dpg-csbsmolds78s73bf2930-a.oregon-postgres.render.com",
+  port: 5432, // Default PostgreSQL port
+  user: "param", // Your username
+  password: "Zqy7G7GjZA04bMD7YPv1ARpKV14naBOU", // Your password
+  database: "trip_managment", // Your database name
+  ssl: {
+    rejectUnauthorized: false, // This option allows self-signed certificates. Set it to true in production for security.
+  },
 });
 
 // Function to insert dummy data into TRIP table
@@ -21,7 +23,7 @@ async function insertTripData() {
             VALUES ($1, $2, $3, $4)
         `;
 
-    for (let i = 0; i < 70; i++) {
+    for (let i = 0; i < 230; i++) {
       const values = [
         faker.lorem.sentence(), // Random description
         faker.number.int({ min: 1, max: 30 }), // Random duration between 1 and 30 days
