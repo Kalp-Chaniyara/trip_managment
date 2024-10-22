@@ -3,11 +3,11 @@ const { faker } = require("@faker-js/faker");
 
 // PostgreSQL connection details
 const client = new Client({
-  host: 'dpg-csbsmolds78s73bf2930-a.oregon-postgres.render.com',
+  host: 'localhost',
   port: 5432,
-  user: 'param', // Update with your username
-  password: 'Zqy7G7GjZA04bMD7YPv1ARpKV14naBOU', // Update with your password
-  database: 'trip_managment', // Update with your database name
+  user: 'postgres', // Update with your username
+  password: 'KalpPGS2024', // Update with your password
+  database: 'postgres', // Update with your database name
 });
 
 // Function to generate a random unique Aadhaar number (12 digits)
@@ -30,7 +30,7 @@ async function insertDataOfUser() {
     console.log("Connected to the database!");
 
     const insertSQL = `
-            INSERT INTO tripUser (aadhaar_no, first_name, middle_name, last_name, phone_no, email)
+            INSERT INTO tripuser (aadhaar_no, first_name, middle_name, last_name, phone_no, email)
             VALUES ($1, $2, $3, $4, $5, $6)
         `;
 

@@ -6,8 +6,8 @@ const client = new Client({
   host: "localhost",
   port: 5432,
   user: "postgres", // Update with your username
-  password: "param", // Update with your password
-  database: "trip", // Update with your database name
+  password: "KalpPGS2024", // Update with your password
+  database: "postgres", // Update with your database name
 });
 
 // Function to insert dummy data into ROUTESTOP table
