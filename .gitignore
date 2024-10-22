@@ -1,0 +1,9 @@
+/add_accomoation.js
+/add_activity.js
+/add_routestop.js
+/add_city.js
+/add_trip.js
+/add_user.js
+*.sql
+*.json
+/node_modules
