@@ -1,6 +1,7 @@
 const { Client } = require("pg");
 const { faker } = require("@faker-js/faker"); // Latest import for faker
 
+//changes updated
 // PostgreSQL connection details
 const client = new Client({
   host: "localhost",
