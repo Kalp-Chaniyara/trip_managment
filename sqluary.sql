@@ -21,11 +21,6 @@ where
 
 
 
-
-
-
-
-
 select
     rating,
     comment
@@ -40,11 +35,6 @@ where
         where
             trip_id = 2
     )
-
-
-
-
-
 
 
 
