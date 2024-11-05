@@ -1,11 +1,6 @@
 const { Client } = require("pg");
 const { faker } = require("@faker-js/faker"); // Latest import for faker
 
-<<<<<<< HEAD
-=======
-//changes updated
-// PostgreSQL connection details
->>>>>>> 217ab23a58f4b2283504090def061f1fe55e64e6
 const client = new Client({
   host: "dpg-csbsmolds78s73bf2930-a.oregon-postgres.render.com",
   port: 5432, // Default PostgreSQL port

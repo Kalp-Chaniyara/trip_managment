@@ -3,11 +3,14 @@ const { faker } = require("@faker-js/faker");
 
 // PostgreSQL connection details
 const client = new Client({
-  host: "localhost",
-  port: 5432,
-  user: "postgres", // Update with your username
-  password: "KalpPGS2024", // Update with your password
-  database: "postgres", // Update with your database name
+  host: "dpg-csbsmolds78s73bf2930-a.oregon-postgres.render.com",
+  port: 5432, // Default PostgreSQL port
+  user: "param", // Your username
+  password: "Zqy7G7GjZA04bMD7YPv1ARpKV14naBOU", // Your password
+  database: "trip_managment", // Your database name
+  ssl: {
+    rejectUnauthorized: false, // This option allows self-signed certificates. Set it to true in production for security.
+  },
 });
 
 // Function to insert dummy data into REVIEW table
