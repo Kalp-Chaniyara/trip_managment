@@ -38,7 +38,7 @@ async function insertTeamManagementData() {
         `;
 
     // Insert random data into TEAM_MANAGEMENT table
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 300; i++) {
       const leader_id = leaders[Math.floor(Math.random() * leaders.length)]; // Random leader ID
       const trip_id = trips[Math.floor(Math.random() * trips.length)]; // Random trip ID
       const start_time_of_trip = faker.date.past(); // Random start time of trip

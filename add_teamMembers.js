@@ -37,7 +37,7 @@ async function insertTeamMemberData() {
     `;
 
     // Insert random data into TEAM_MEMBER table
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 300; i++) {
       const member_id = members[Math.floor(Math.random() * members.length)]; // Random member ID
       const team = teamManagement[Math.floor(Math.random() * teamManagement.length)]; // Random team management record
       const leader_id = team.leader_id;
