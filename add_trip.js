@@ -23,7 +23,7 @@ async function insertTripData() {
             VALUES ($1, $2, $3, $4)
         `;
 
-    for (let i = 0; i < 230; i++) {
+    for (let i = 0; i < 300; i++) {
       const values = [
         faker.lorem.sentence(), // Random description
         faker.number.int({ min: 1, max: 30 }), // Random duration between 1 and 30 days
