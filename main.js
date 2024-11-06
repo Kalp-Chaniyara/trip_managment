@@ -182,7 +182,7 @@ async function calculateTotalRevenueForTrip() {
   const tripId = await askQuestion("Enter Trip ID: ");
   const result = await client.query(
     `SELECT SUM(P.amount_paid) AS total_revenue
-     FROM PAYMENT P
+     FROM PAYMENT as P
      JOIN TEAM_MANAGEMENT TM ON P.LEADER_ID = TM.LEADER_ID 
                               AND P.START_TIME_OF_TRIP = TM.START_TIME_OF_TRIP
      WHERE TM.TRIP_ID = $1`,
@@ -314,7 +314,7 @@ async function findPaymentMethodsForTrip() {
 async function retrieveActivitiesForTripStop() {
   const tripId = await askQuestion("Enter Trip ID: ");
   const result = await client.query(
-    `SELECT stop_number, TRIP_ID, name, description
+    `SELECT stop_number, name, description
      FROM ACTIVITY
      WHERE TRIP_ID = $1`,
     [tripId]

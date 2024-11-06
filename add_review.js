@@ -39,7 +39,7 @@ async function insertReviewData() {
     `;
 
     // Insert random data into REVIEW table
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 1000; i++) {
       const user_id = users[Math.floor(Math.random() * users.length)]; // Random user ID
       const team = teamManagement[Math.floor(Math.random() * teamManagement.length)]; // Random team management record
       const leader_id = team.leader_id;
