@@ -141,13 +141,16 @@ async function askQuestion(query) {
   });
   return ans;
 }
+
 async function getTripsForUser() {
   const userAadhaarNo = await askQuestion("Enter User Aadhaar Number: ");
   const result = await client.query(
-    `SELECT T.trip_id 
-     FROM TEAM_MANAGEMENT TM
-     JOIN TRIP T ON TM.TRIP_ID = T.trip_id
-     WHERE TM.LEADER_ID = $1`,
+    `SELECT distinct mt.START_TIME_OF_TRIP, trip.*
+       FROM TEAM_MEMBER AS m
+       JOIN TEAM_MANAGEMENT AS mt ON m.LEADER_ID = mt.LEADER_ID
+       AND m.START_TIME_OF_TRIP = mt.START_TIME_OF_TRIP
+	     join trip on trip.trip_id = mt.trip_id
+       WHERE m.member_id = $1 or mt.leader_id = $1`,
     [userAadhaarNo]
   );
   console.log("Trips for User:", result.rows);
@@ -157,9 +160,9 @@ async function getDestinationsForTrip() {
   const tripId = await askQuestion("Enter Trip ID: ");
   const result = await client.query(
     `SELECT RS.city, RS.statename, C.district_name
-     FROM ROUTESTOP RS
-     JOIN CITY C ON RS.city = C.cityname AND RS.statename = C.statename
-     WHERE RS.trip_id = $1`,
+    FROM ROUTESTOP RS
+    JOIN CITY C ON RS.city = C.cityname AND RS.statename = C.statename
+    WHERE RS.trip_id = $1`,
     [tripId]
   );
   console.log("Destinations for Trip:", result.rows);
@@ -169,10 +172,10 @@ async function getReviewsForTrip() {
   const tripId = await askQuestion("Enter Trip ID: ");
   const result = await client.query(
     `SELECT R.user_id, R.rating, R.comment, R.review_date
-     FROM REVIEW R
-     JOIN TEAM_MANAGEMENT TM ON R.LEADER_ID = TM.LEADER_ID 
-                              AND R.START_TIME_OF_TRIP = TM.START_TIME_OF_TRIP
-     WHERE TM.TRIP_ID = $1`,
+    FROM REVIEW R
+    JOIN TEAM_MANAGEMENT TM ON R.LEADER_ID = TM.LEADER_ID 
+    AND R.START_TIME_OF_TRIP = TM.START_TIME_OF_TRIP
+    WHERE TM.TRIP_ID = $1`,
     [tripId]
   );
   console.log("Reviews for Trip:", result.rows);
@@ -181,11 +184,30 @@ async function getReviewsForTrip() {
 async function calculateTotalRevenueForTrip() {
   const tripId = await askQuestion("Enter Trip ID: ");
   const result = await client.query(
-    `SELECT SUM(P.amount_paid) AS total_revenue
-     FROM PAYMENT P
-     JOIN TEAM_MANAGEMENT TM ON P.LEADER_ID = TM.LEADER_ID 
-                              AND P.START_TIME_OF_TRIP = TM.START_TIME_OF_TRIP
-     WHERE TM.TRIP_ID = $1`,
+    `select
+    sum(memcount) * (
+        select
+            price
+        from
+            trip
+        where
+            trip_id = $1
+    ) as total
+from
+    (
+        select count(member_id) as memcount
+        from
+            team_member
+        where
+            concat (LEADER_ID, START_TIME_OF_TRIP) in (
+                select
+                    concat (LEADER_ID, START_TIME_OF_TRIP) 
+					from 
+					TEAM_MANAGEMENT
+                where
+                    trip_id = $1
+            )
+    ) as f;`,
     [tripId]
   );
   console.log("Total Revenue for Trip:", result.rows);
@@ -211,6 +233,10 @@ async function findLongTrips() {
      WHERE duration > 7`
   );
   console.log("Trips longer than 7 days:", result.rows);
+  for (let index = 0; index < result.rowCount; index++) {
+    const element = result.rows[index];
+    console.log(element);
+  }
 }
 
 async function countTotalTrips() {
@@ -326,7 +352,7 @@ async function findPaymentMethodsForTrip() {
 async function retrieveActivitiesForTripStop() {
   const tripId = await askQuestion("Enter Trip ID: ");
   const result = await client.query(
-    `SELECT stop_number, TRIP_ID, name, description
+    `SELECT stop_number, name, description
      FROM ACTIVITY
      WHERE TRIP_ID = $1`,
     [tripId]
@@ -342,6 +368,7 @@ async function listUsersWithMoreThanThreeTrips() {
      HAVING COUNT(START_TIME_OF_TRIP) > 3`
   );
   console.log("Users with More Than 3 Trips:", result.rows);
+  
 }
 
 async function findTopThreeExpensiveTripsWithMoreThanThreeStops() {
