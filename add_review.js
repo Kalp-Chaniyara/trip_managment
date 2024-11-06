@@ -39,14 +39,14 @@ async function insertReviewData() {
     `;
 
     // Insert random data into REVIEW table
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 100; i++) {
       const user_id = users[Math.floor(Math.random() * users.length)]; // Random user ID
       const team = teamManagement[Math.floor(Math.random() * teamManagement.length)]; // Random team management record
       const leader_id = team.leader_id;
       const start_time_of_trip = team.start_time_of_trip;
 
       const rating = faker.number.int({ min: 0, max: 5 }); // Random rating between 0 and 5
-      const comment = faker.lorem.sentences(); // Random comment
+      const comment = "excellent trip";
       const review_date = faker.date.recent(); // Random recent date
 
       const values = [

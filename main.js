@@ -260,7 +260,6 @@ JOIN trip t ON tm.trip_id = t.trip_id;
   console.log("Team Leaders and Trips:", result.rows);
 }
 
-
 async function findMostExpensiveTrip() {
   const result = await client.query(
     `SELECT trip_id, description, price
@@ -314,7 +313,7 @@ async function findTripsRatedExcellent() {
   const result = await client.query(
     `SELECT LEADER_ID, START_TIME_OF_TRIP, comment
      FROM REVIEW
-     WHERE comment LIKE 'excellent'`
+     WHERE comment LIKE 'excellent trip'`
   );
   console.log("Trips Rated 'Excellent':", result.rows);
 }
@@ -362,7 +361,6 @@ async function listUsersWithMoreThanThreeTrips() {
      HAVING COUNT(START_TIME_OF_TRIP) > 3`
   );
   console.log("Users with More Than 3 Trips:", result.rows);
-  
 }
 
 async function findTopThreeExpensiveTripsWithMoreThanThreeStops() {
