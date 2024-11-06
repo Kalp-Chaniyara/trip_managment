@@ -210,7 +210,11 @@ async function findLongTrips() {
      FROM TRIP
      WHERE duration > 7`
   );
-  console.log("Trips longer than 7 days:", result.rows);
+  console.log("Trips longer than 7 days:");
+  for (let index = 0; index < result.rowCount; index++) {
+    const element = result.rows[index];
+    console.log(element);
+  }
 }
 
 async function countTotalTrips() {
@@ -336,6 +340,7 @@ async function listUsersWithMoreThanThreeTrips() {
      HAVING COUNT(START_TIME_OF_TRIP) > 3`
   );
   console.log("Users with More Than 3 Trips:", result.rows);
+  
 }
 
 async function findTopThreeExpensiveTripsWithMoreThanThreeStops() {
