@@ -221,20 +221,22 @@ async function countTotalTrips() {
   console.log("Total Trips:", result.rows[0].total_trips);
 }
 
+//*** */
 async function listTeamLeadersAndTrips() {
   const result = await client.query(
     // `SELECT LEADER_ID, TRIP_ID
     //  FROM TEAM_MANAGEMENT`
     `SELECT tu.first_name, tu.middle_name, tu.last_name, t.description
-FROM tripuser tu
+    FROM tripuser tu
 JOIN team_management tm ON tu.aadhaar_no = tm.leader_id
 JOIN trip t ON tm.trip_id = t.trip_id;
 `
-  );
-  console.log("Team Leaders and Trips:", result.rows);
+);
+console.log("Team Leaders and Trips:", result.rows);
 }
 
 
+//*** */
 async function findMostExpensiveTrip() {
   const result = await client.query(
     `SELECT trip_id, description, price
@@ -245,6 +247,7 @@ async function findMostExpensiveTrip() {
   console.log("Most Expensive Trip:", result.rows[0]);
 }
 
+//*** */
 async function listTeamMembersForTrip() {
   const leaderId = await askQuestion("Enter Leader ID: ");
   const startTimeOfTrip = await askQuestion(
@@ -252,13 +255,14 @@ async function listTeamMembersForTrip() {
   );
   const result = await client.query(
     `SELECT member_id
-     FROM TEAM_MEMBER
-     WHERE LEADER_ID = $1 AND START_TIME_OF_TRIP = $2`,
+    FROM TEAM_MEMBER
+    WHERE LEADER_ID = $1 AND START_TIME_OF_TRIP = $2`,
     [leaderId, startTimeOfTrip]
   );
   console.log("Team Members for Trip:", result.rows);
 }
 
+//*** */
 async function calculateTotalPaymentsForTrip() {
   const leaderId = await askQuestion("Enter Leader ID: ");
   const startTimeOfTrip = await askQuestion(
@@ -270,7 +274,9 @@ async function calculateTotalPaymentsForTrip() {
      WHERE LEADER_ID = $1 AND START_TIME_OF_TRIP = $2`,
     [leaderId, startTimeOfTrip]
   );
-  console.log("Total Payments for Trip:", result.rows[0].total_amount);
+  t= result.rows[0].total_amount;
+  if(t == null) t=0;
+  console.log("Total Payments for Trip:", t);
 }
 
 async function retrieveTripsWithMoreThanTwoMembers() {
