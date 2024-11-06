@@ -70,12 +70,13 @@ async function main() {
   }
 }
 
-function askQuestion(query) {
-  return new Promise((resolve) => {
+async function askQuestion(query) {
+  const ans = await new Promise((resolve) => {
     rl.question(query, (answer) => {
       resolve(answer);
     });
   });
+  return ans;
 }
 
 async function getTripIDForMember() {
