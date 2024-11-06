@@ -223,11 +223,17 @@ async function countTotalTrips() {
 
 async function listTeamLeadersAndTrips() {
   const result = await client.query(
-    `SELECT LEADER_ID, TRIP_ID
-     FROM TEAM_MANAGEMENT`
+    // `SELECT LEADER_ID, TRIP_ID
+    //  FROM TEAM_MANAGEMENT`
+    `SELECT tu.first_name, tu.middle_name, tu.last_name, t.description
+FROM tripuser tu
+JOIN team_management tm ON tu.aadhaar_no = tm.leader_id
+JOIN trip t ON tm.trip_id = t.trip_id;
+`
   );
   console.log("Team Leaders and Trips:", result.rows);
 }
+
 
 async function findMostExpensiveTrip() {
   const result = await client.query(
