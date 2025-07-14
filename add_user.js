@@ -1,15 +1,13 @@
 const { Client } = require("pg");
 const { faker } = require("@faker-js/faker");
+require('dotenv').config();
 
 const client = new Client({
-  host: "dpg-csbsmolds78s73bf2930-a.oregon-postgres.render.com",
-  port: 5432, // Default PostgreSQL port
-  user: "param", // Your username
-  password: "Zqy7G7GjZA04bMD7YPv1ARpKV14naBOU", // Your password
-  database: "trip_managment", // Your database name
-  ssl: {
-    rejectUnauthorized: false, // This option allows self-signed certificates. Set it to true in production for security.
-  },
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
 // Function to generate a random unique Aadhaar number (12 digits)

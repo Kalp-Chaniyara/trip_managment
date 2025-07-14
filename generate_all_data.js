@@ -1,13 +1,15 @@
+import dotenv from "dotenv";
+dotenv.config();
 import pkg from "pg";
 const { Client } = pkg;
 import { faker } from "@faker-js/faker";
 
 const client = new Client({
-  host: "localhost",
-  port: 5432,
-  user: "postgres",
-  password: "KalpPGS2024",
-  database: "postgres",
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
 // Parameters for data volume
@@ -159,6 +161,7 @@ async function main() {
   }
   console.log("Inserted accommodations");
 
+  // 8. Generate ACTIVITY for each stop
   // 8. Generate ACTIVITY for each stop (only one activity per stop)
 for (const rs of routeStops) {
   await client.query(
@@ -172,7 +175,7 @@ for (const rs of routeStops) {
     ]
   );
 }
-console.log("Inserted activities");
+  console.log("Inserted activities");
 
   // 9. Generate PAYMENT for each TEAM_MANAGEMENT
   for (const tm of teamManagements) {
