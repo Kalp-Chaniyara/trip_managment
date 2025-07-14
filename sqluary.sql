@@ -85,23 +85,3 @@ SELECT A.stop_number, A.address, A.number_of_days_between_start_and_checkin,
        A.duration_of_stay, A.checkin_time, A.checkout_time, A.contact_info
 FROM ACCOMMODATION A
 WHERE A.trip_id = specific_trip_id;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
